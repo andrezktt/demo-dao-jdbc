@@ -5,12 +5,16 @@ import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
+        Locale.setDefault(Locale.US);
+        Scanner scan = new Scanner(System.in);
+
         SellerDao sellerDao = DaoFactory.createSellerDao();
 
         System.out.println("=== TEST 1: seller findById ===");
@@ -31,11 +35,11 @@ public class Program {
         }
 
         System.out.println("\n=== TEST 4: seller insert ===");
-        Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", new Date(), 4000.00, department);
-        sellerDao.insert(newSeller);
-        System.out.printf("\nINSERTED! New id = %d", newSeller.getId());
+        // Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", new Date(), 4000.00, department);
+        // sellerDao.insert(newSeller);
+        // System.out.printf("\nINSERTED! New id = %d", newSeller.getId());
 
-        System.out.println("\n=== TEST 4: seller insert ===");
+        System.out.println("\n=== TEST 5: seller insert ===");
         seller = sellerDao.findById(9);
         seller.setName("Kendrick Lamar");
         seller.setEmail("kdot@gmai.com");
@@ -47,5 +51,13 @@ public class Program {
         seller.setDepartment(department);
         System.out.println("Update completed!");
         sellerDao.update(seller);
+
+        System.out.println("\n=== TEST 6: seller delete ===");
+        System.out.print("Enter id for delete test: ");
+        int id = scan.nextInt();
+        sellerDao.deleteById(id);
+        System.out.println("Delete completed!");
+
+        scan.close();
     }
 }
