@@ -6,6 +6,7 @@ import model.entities.Department;
 import model.entities.Seller;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public class Program {
@@ -30,8 +31,21 @@ public class Program {
         }
 
         System.out.println("\n=== TEST 4: seller insert ===");
-        Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", LocalDate.now(), 4000.00, department);
+        Seller newSeller = new Seller(null, "Greg", "greg@gmail.com", new Date(), 4000.00, department);
         sellerDao.insert(newSeller);
         System.out.printf("\nINSERTED! New id = %d", newSeller.getId());
+
+        System.out.println("\n=== TEST 4: seller insert ===");
+        seller = sellerDao.findById(9);
+        seller.setName("Kendrick Lamar");
+        seller.setEmail("kdot@gmai.com");
+        seller.setBirthDate(new Date());
+        sellerDao.update(seller);
+        seller = sellerDao.findById(7);
+        seller.setBaseSalary(7500.00);
+        department.setId(3);
+        seller.setDepartment(department);
+        System.out.println("Update completed!");
+        sellerDao.update(seller);
     }
 }
